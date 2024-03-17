@@ -86,3 +86,4 @@ Then install the Jupyter Notebook using:
 
 Congratulations. You have installed Jupyter Notebook. See
 :ref:`Running the Notebook <running>` for more details.
+
