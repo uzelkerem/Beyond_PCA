@@ -77,9 +77,9 @@ Next, we need to initiate the jupyter notebook:
 jupyter notebook XX1.ipynb
 ```
 
-Then, a browser windor will be opened. From there we will select the conda environmen we created as a kernel:
+Then, a browser windor will be opened. From there we will select the conda environment we created as a kernel:
 
-"add screenshot XX1.png"
+![Screenshot Description](images/ss1.png)
 
 In this jupyter notebook the first code block is for loading required libraries:
 
