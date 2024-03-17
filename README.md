@@ -63,11 +63,28 @@ Angsd ile ilgili. Missingness, minor allela freq onemi, citation ile guideline c
 Running t-SNE and UMAP with the Principal Components of Genotype Likelihoods
 ------------------------
 ### Loading Required Libraries
-In the following sections we will go over a single input covariance matrix obtained with (SO_2x).
-For running subsequent analyses with multiple covariance matrices you can refer to XXX.ipynb
+In the following sections we will go over a single input covariance matrix obtained with (SO_2x). For the corresponding Jupyter Notebook refer to XX1.ipynb
+
+For running subsequent analyses with multiple covariance matrices you can refer to XXX2.ipynb
+
+The first step is to load required libraries. For this, we need to activate the conda environment (env_name):
+```bash
+conda activate env_name
+```
+
+Next, we need to initiate the jupyter notebook:
+```bash
+jupyter notebook XX1.ipynb
+```
+
+Then, a browser windor will be opened. From there we will select the conda environmen we created as a kernel:
+
+"add screenshot XX1.png"
+
+In this jupyter notebook the first code block is for loading required libraries:
 
 ```python
-# Import libraries. 
+# Import libraries
 import numpy as np
 import pandas as pd
 import seaborn as sns
