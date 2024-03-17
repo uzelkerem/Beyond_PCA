@@ -54,7 +54,7 @@ Use the following installation steps:
     ```bash
     jupyter notebook
 
-   See [Running the Notebook](https://docs.jupyter.org/en/latest/running.html#running) for more details.
+See [Running the Notebook](https://docs.jupyter.org/en/latest/running.html#running) for more details.
 
 
 Estimation of Genotype Likelihoods (GLs)
