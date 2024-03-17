@@ -1,9 +1,11 @@
 - [Getting Started](#getting-started)
-  + [Installing Jupyter Notebook](#installing-jupyter-notebook)
-      - [Using Conda](#installing-jupyter-notebook-conda)
-      - [Using pip](#installing-jupyter-notebook-pip)
+  * [Installing Jupyter Notebook](#installing-jupyter-notebook)
+      + [Using Conda](#using-conda)
 - [Tutorial](#tutorial)
-  * [building the data object](#building-the-data-object)
+  * [Estimation of Genotype Likelihoods (GLs)](#estimation-of-genotype-likelihoods=gls)
+    + [Important points to consider](#important-points-to-consider)
+  * [PCA using GLs](#pca-using-gls)
+
     + [Loading the data](#loading-the-data)
       - [Loading from multiple CSV files](#loading-from-multiple-csv-files)
       - [Loading from TrackingData (DLC Analyzer)](#loading-from-trackingdata--dlc-analyzer-)
@@ -26,67 +28,44 @@
     
 Getting Started
 ===========================================
+This repository is about ..
 
-### Installing Jupyter Notebook
+Installing Jupyter Notebook
+------------------------
 
-#### Using Anaconda and conda
+### Using Conda
 
-For new users, we **highly recommend** `installing Anaconda
-<https://www.anaconda.com/download>`_. Anaconda conveniently
+For new users, we **highly recommend** [installing Anaconda](https://www.anaconda.com/download).
+Anaconda conveniently
 installs Python, the Jupyter Notebook, and other commonly used packages for
 scientific computing and data science.
 
 Use the following installation steps:
 
-1. Download `Anaconda <https://www.anaconda.com/download>`_. We recommend
-   downloading Anaconda's latest Python 3 version (currently Python 3.9).
+1. Download [Anaconda](https://www.anaconda.com/download). We recommend
+   downloading Anaconda's latest Python 3 version (currently Python 3.11).
 
 2. Install the version of Anaconda which you downloaded, following the
    instructions on the download page.
 
 3. Congratulations, you have installed Jupyter Notebook. To run the notebook:
 
-   .. code-block:: bash
+   
+    ```bash
+    jupyter notebook
 
-       jupyter notebook
+   See [Running the Notebook](https://docs.jupyter.org/en/latest/running.html#running) for more details.
 
-   See :ref:`Running the Notebook <running>` for more details.
 
-.. _existing-python-new-jupyter:
+Estimation of Genotype Likelihoods (GLs)
+------------------------
+Bu tutorial'da oryx datasi uzerinden gidicez, onun angsd kodunu acikliycaz.
 
-This package enables efficient meta-analyses of unsupervised behavior analysis results. It builds a data object containing label data from multiple recordings/samples, with labeling data from different sources and metadata describing experimental design and grouping variables. The data object can be analyzed using helper functions for clustering-to-clustering mapping, Behavior Flow Analysis (BFA; statistical two group analyses), Behavior Flow Fingerprinting (BFF; 2d embedding with a per sample resolution), and more.
+### Important points to consider
+Angsd ile ilgili. Missingness, minor allela freq onemi, citation ile guideline cok guzel buna bakabilirsiniz diycez.
 
-#### Using pip
-
-.. important::
-
-    Jupyter installation requires Python 3.3 or greater, or
-    Python 2.7. IPython 1.x, which included the parts that later became Jupyter,
-    was the last version to support Python 3.2 and 2.6.
-
-As an existing Python user, you may wish to install Jupyter using Python's
-package manager, :term:`pip`, instead of Anaconda.
-
-.. _python-using-pip:
-
-First, ensure that you have the latest pip;
-older versions may have trouble with some dependencies:
-
-.. code-block:: bash
-
-    pip3 install --upgrade pip
-
-Then install the Jupyter Notebook using:
-
-.. code-block:: bash
-
-    pip3 install jupyter
-
-(Use ``pip`` if using legacy Python 2.)
-
-Congratulations. You have installed Jupyter Notebook. See
-:ref:`Running the Notebook <running>` for more details.
-
+PCA using GLs
+------------------------
 
 
 
