@@ -98,6 +98,7 @@ import umap
 
 ### Creating Color Dictionaries for Different Populations
 
+
 ### Loading the Population Data and Covariance Matrix
 
 ### Performing Elbow Method for the Selection of Principal Components
@@ -108,6 +109,7 @@ import umap
 
 t-SNE and UMAP without PCA Initialization
 ------------------------
+
 
 Citation
 ===========================================
