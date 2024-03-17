@@ -25,3 +25,9 @@ Behavior Flow
 ===========================================
 
 This package enables efficient meta-analyses of unsupervised behavior analysis results. It builds a data object containing label data from multiple recordings/samples, with labeling data from different sources and metadata describing experimental design and grouping variables. The data object can be analyzed using helper functions for clustering-to-clustering mapping, Behavior Flow Analysis (BFA; statistical two group analyses), Behavior Flow Fingerprinting (BFF; 2d embedding with a per sample resolution), and more.
+
+
+Functions Glossary
+===========================================
+
+This package enables efficient meta-analyses of unsupervised behavior analysis results. It builds a data object containing label data from multiple recordings/samples, with labeling data from different sources and metadata describing experimental design and grouping variables. The data object can be analyzed using helper functions for clustering-to-clustering mapping, Behavior Flow Analysis (BFA; statistical two group analyses), Behavior Flow Fingerprinting (BFF; 2d embedding with a per sample resolution), and more.
