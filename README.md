@@ -6,7 +6,6 @@
     + [Estimation of Genotype Likelihoods](#Estimation-of-Genotype-Likelihoods)
     + [Principal Component Analysis using Genotype Likelihoods](#Principal-Component-Analysis-using-Genotype-Likelihoods)
     + [Important Points to Consider](#Important-Points-to-Consider)
-
   * [Running UMAP and t-SNE with the Principal Components of Genotype Likelihoods](#running-umap)
      + [Loading Required Libraries](#Loading-libraries)
      + [Creating Color Dictionaries for Different Populations](#creating-color-dicts)
@@ -14,9 +13,7 @@
      + [Performing Elbow Method for the Selection of Principal Components](#elbow-method)
      + [Performing UMAP and tSNE with a Grid Search](#umap-tsne)
      + [Visualizing the Results](#visualization)
-
   * [UMAP and tSNE without PCA Initialization](#alternative-without-pca)
-
  - [Citation](#citation)
 
 
@@ -52,17 +49,35 @@ Use the following installation steps:
 
 See [Running the Notebook](https://docs.jupyter.org/en/latest/running.html#running) for more details.
 
-
-Estimation of Genotype Likelihoods (GLs)
+Tutorial
+===========================================
+Generating Input Files
 ------------------------
+### Estimation of Genotype Likelihoods
 Bu tutorial'da oryx datasi uzerinden gidicez, onun angsd kodunu acikliycaz.
 
+### Principal Component Analysis using Genotype Likelihoods
 
-### Important points to consider
+### Important Points to Consider
 Angsd ile ilgili. Missingness, minor allela freq onemi, citation ile guideline cok guzel buna bakabilirsiniz diycez.
 
-PCA using GLs
+Running UMAP and t-SNE with the Principal Components of Genotype Likelihoods
+------------------------
+### Loading Required Libraries
+
+### Creating Color Dictionaries for Different Populations
+
+### Loading the Population Data and Covariance Matrix
+
+### Performing Elbow Method for the Selection of Principal Components
+
+### Performing UMAP and tSNE with a Grid Search
+
+### Visualizing the Results
+
+UMAP and tSNE without PCA Initialization
 ------------------------
 
-
+Citation
+===========================================
 
