@@ -1,4 +1,4 @@
-- [Getting Started](#getting-started)
+- [Getting Started](#Getting-Started)
   * [Installing Jupyter Notebook](#installing-jupyter-notebook)
       + [Using Conda](#using-conda)
 - [Tutorial](#tutorial)
