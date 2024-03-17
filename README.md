@@ -59,7 +59,7 @@ Bu tutorial'da oryx datasi uzerinden gidicez, onun angsd kodunu acikliycaz.
 ### Important Points to Consider
 Angsd ile ilgili. Missingness, minor allela freq onemi, citation ile guideline cok guzel buna bakabilirsiniz diycez.
 
-Running UMAP and t-SNE with the Principal Components of Genotype Likelihoods
+Running t-SNE and UMAP with the Principal Components of Genotype Likelihoods
 ------------------------
 ### Loading Required Libraries
 
@@ -69,11 +69,11 @@ Running UMAP and t-SNE with the Principal Components of Genotype Likelihoods
 
 ### Performing Elbow Method for the Selection of Principal Components
 
-### Performing UMAP and tSNE with a Grid Search
+### Performing t-SNE and UMAP with a Grid Search
 
 ### Visualizing the Results
 
-UMAP and tSNE without PCA Initialization
+t-SNE and UMAP without PCA Initialization
 ------------------------
 
 Citation
