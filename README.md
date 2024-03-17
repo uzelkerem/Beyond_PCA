@@ -2,28 +2,24 @@
   * [Installing Jupyter Notebook](#installing-jupyter-notebook)
       + [Using Conda](#using-conda)
 - [Tutorial](#tutorial)
-  * [Estimation of Genotype Likelihoods (GLs)](#estimation-of-genotype-likelihoods=gls)
-    + [Important points to consider](#important-points-to-consider)
-  * [PCA using GLs](#pca-using-gls)
+  * [Generating Input Files](#generating-input-files)
+    + [Estimation of Genotype Likelihoods](#Estimation-of-Genotype-Likelihoods)
+    + [Principal Component Analysis using Genotype Likelihoods](#Principal-Component-Analysis-using-Genotype-Likelihoods)
+    + [Important Points to Consider](#Important-Points-to-Consider)
 
-    + [Loading the data](#loading-the-data)
-      - [Loading from multiple CSV files](#loading-from-multiple-csv-files)
-      - [Loading from TrackingData (DLC Analyzer)](#loading-from-trackingdata--dlc-analyzer-)
-    + [Exploring the data structure of USData](#exploring-the-data-structure-of-usdata)
-    + [Adding more data to an existing USData object](#adding-more-data-to-an-existing-usdata-object)
-      - [Adding new labels to existing files](#adding-new-labels-to-existing-files)
-      - [Adding new files](#adding-new-files)
-    + [Removing files or labels from the dataset](#removing-files-or-labels-from-the-dataset)
-  * [Processing the data and runing basic analyses](#processing-the-data-and-runing-basic-analyses)
-    + [Smoothing and creating a basic report](#smoothing-and-creating-a-basic-report)
-    + [Calculating Transitionmatrices and ploting behavior flow](#calculating-transitionmatrices-and-ploting-behavior-flow)
-    + [Mapping different label groups to each other](#mapping-different-label-groups-to-each-other)
-  * [Grouped analyses](#grouped-analyses)
-    + [Adding metadata](#adding-metadata)
-    + [statiatical two group comparisons and Behavior Flow Analysis](#statiatical-two-group-comparisons-and-behavior-flow-analysis)
-    + [Behavior Flow Fingerprinting](#behavior-flow-fingerprinting)
-    + [Behavior Flow Fingerprinting across multiple datasets](#behavior-flow-fingerprinting-across-multiple-datasets)
-- [Functions Glossary](#functions-glossary)
+  * [Running UMAP and t-SNE with the Principal Components of Genotype Likelihoods](#running-umap)
+     + [Loading Required Libraries](#Loading-libraries)
+     + [Creating Color Dictionaries for Different Populations](#creating-color-dicts)
+     + [Loading the Population Data and Covariance Matrix](#loading-population-data)
+     + [Performing Elbow Method for the Selection of Principal Components](#elbow-method)
+     + [Performing UMAP and tSNE with a Grid Search](#umap-tsne)
+     + [Visualizing the Results](#visualization)
+
+  * [UMAP and tSNE without PCA Initialization](#alternative-without-pca)
+
+ - [Citation](#citation)
+
+
 
     
 Getting Started
@@ -60,6 +56,7 @@ See [Running the Notebook](https://docs.jupyter.org/en/latest/running.html#runni
 Estimation of Genotype Likelihoods (GLs)
 ------------------------
 Bu tutorial'da oryx datasi uzerinden gidicez, onun angsd kodunu acikliycaz.
+
 
 ### Important points to consider
 Angsd ile ilgili. Missingness, minor allela freq onemi, citation ile guideline cok guzel buna bakabilirsiniz diycez.
