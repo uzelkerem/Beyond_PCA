@@ -79,7 +79,7 @@ jupyter notebook XX1.ipynb
 
 Then, a browser windor will be opened. From there we will select the conda environment we created as a kernel:
 
-![Screenshot Description](images/ss1.png)
+![Kernel Selection](images/ss1.png)
 
 In this jupyter notebook the first code block is for loading required libraries:
 
@@ -116,9 +116,9 @@ Covariance matrix and population data for Oryx samples are loaded:
 
 ```python
 #load population data
-population_names = pd.read_csv('population_info/oryx_pop_info_sorted_46_final.txt', sep='\t', header=0)
+population_names = pd.read_csv('input_files/oryx_pop_info_sorted_46_final.txt', sep='\t', header=0)
 #load the covariance matrix
-filename='cov_files/oryx_2xyh_1K.cov'
+filename='input_files/oryx_2xyh_1K.cov'
 cov_mat= pd.read_csv(filename, sep=' ', header=None)
 #Generating the pandas dataframe called Data_Struct
 Data_Struct=population_names
@@ -180,8 +180,18 @@ expl_df.set_index(np.arange(1, eigenVectors.shape[0] + 1), inplace=True)
 ```
 Finally, elbow point is calculated and plotted together with the scree plot:
 
+```python
+# Plot the scree plot
+plot_filename = f'scree_plot_{filename_title}.png'
 
+ # Find the elbow point
+elbow_point = find_elbow_point(expl_df['explained_variance'])
+print("Optimal number of principal components):", elbow_point)
 
+plot_scree(expl_df['explained_variance'],'Oryx 2x',elbow_point)
+```
+
+![Oryx ScreePlot](images/OryxScreePlot.png)
 
 ### Performing t-SNE and UMAP with a Grid Search
 
