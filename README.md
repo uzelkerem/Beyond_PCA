@@ -99,10 +99,61 @@ import umap
 
 ### Creating Color Palette for Different Populations
 
+A custom color palette is created for Oryx populations as in (REF):
+```python
+#for Oryx datasets:
+custom_palette = {
+    "EAD_A": "#cada45", #green
+    "EAD_B": "#d4a2e1", #purple
+    "EEP": "#55e0c6", #blue
+    "USA": "#f0b13c", #orange
+}
+```
 
 ### Loading the Population Data and Covariance Matrix
 
+Covariance matrix and population data for Oryx samples are loaded:
+
+```python
+#load population data
+population_names = pd.read_csv('population_info/oryx_pop_info_sorted_46_final.txt', sep='\t', header=0)
+#load the covariance matrix
+filename='cov_files/oryx_0.5xyh.cov'
+cov_mat= pd.read_csv(filename, sep=' ', header=None)
+#Generating the pandas dataframe called Data_Struct
+Data_Struct=population_names
+```
+
 ### Performing Elbow Method for the Selection of Principal Components
+
+First the functions to calculate the 'elbow point' (using kneed, [Satopaa et al., 2011](https://github.com/arvkevi/kneed/tree/v0.8.5)) and scree plot functions are defined:
+```python
+
+# Define your filenames and their corresponding titles
+filename_title = ['Oryx 0.5x']  # Title of the plots
+
+# Function to plot the scree plot
+def plot_scree(explained_variance,elbow_point):
+    plt.figure(figsize=(8, 4))
+    # Convert to a simple list if it's not already
+    explained_variance = list(explained_variance)
+    plt.plot(range(1, len(explained_variance) + 1), explained_variance, marker='o', linestyle='--')
+    plt.axvline(x=elbow_point, color='r', linestyle='--')
+    plt.text(elbow_point + 0.1, max(explained_variance) * 0.9, f'Elbow: {elbow_point}', color='red', verticalalignment='center')
+    plt.title(f'Scree Plot | {filename_title}')
+    plt.xlabel('Number of Components')
+    plt.ylabel('Variance Explained')
+    plt.grid()
+    plt.show()
+
+# Function to find the elbow point
+def find_elbow_point(explained_variance, sensitivity=1.0):
+    explained_variance = list(explained_variance)
+    kneedle = KneeLocator(range(1, len(explained_variance) + 1), explained_variance, 
+                          curve='convex', direction='decreasing', 
+                          S=sensitivity, interp_method='polynomial')
+    return kneedle.elbow
+```
 
 ### Performing t-SNE and UMAP with a Grid Search
 
