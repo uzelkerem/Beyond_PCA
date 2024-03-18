@@ -126,7 +126,7 @@ Data_Struct=population_names
 
 ### Performing Elbow Method for the Selection of Principal Components
 
-First the functions to calculate the 'elbow point' (using *kneed*, [Satopaa et al., 2011](https://github.com/arvkevi/kneed/tree/v0.8.5)) and scree plot functions are defined:
+First the functions to calculate the 'elbow point' (using _kneed_, [Satopaa et al., 2011](https://github.com/arvkevi/kneed/tree/v0.8.5)) and scree plot functions are defined:
 
 ```python
 # Function to plot the scree plot
