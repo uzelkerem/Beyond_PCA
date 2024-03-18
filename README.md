@@ -1,6 +1,5 @@
 - [Getting Started](#Getting-Started)
   * [Installing Jupyter Notebook](#Installing-Jupyter-Notebook)
-      + [Using Conda](#Using-Conda)
 - [Tutorial](#Tutorial)
   * [Generating Input Files](#Generating-Input-Files)
     + [Estimation of Genotype Likelihoods](#Estimation-of-Genotype-Likelihoods)
@@ -23,8 +22,6 @@ This repository is about ..
 
 Installing Jupyter Notebook
 ------------------------
-
-### Using Conda
 
 For new users, we highly recommend [installing Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) and creating a conda environment which includes the required packages to run the Jupyter Notebook and the subsequent analysis detailed in the following tutorial.
 
