@@ -194,9 +194,91 @@ plot_scree(expl_df['explained_variance'],'Oryx 2x',elbow_point)
 ![Oryx ScreePlot](images/OryxScreePlot.png)
 
 ### Performing t-SNE and UMAP with a Grid Search
+Using the number of PCs with the elbow method, t-SNE and UMAP is performed with a combination of parameters (Grid search).
 
+First, the parameters are defined:
+```python
+#define number of principal components to be used as inputs for UMAP and t-SNE calculations
+n_pc = elbow_point
+#define parameter range for t-SNE
+perplexity_values=(5,10,23)
+#define parameter space for UMAP
+mindists=(0.01,0.1,0.5)
+n_neighbors_nums=(5,10,23)
+```
+Next, t-SNE and UMAP is performed:
+
+```python
+#t-SNE calculation
+for perp in perplexity_values:
+    np.random.seed(111)
+    proj_tsne = TSNE(n_components=2,perplexity=perp).fit_transform(principal_components[:,:n_pc])
+    Data_Struct['tSNE-1 perp'+str(perp)]=proj_tsne[:,0]
+    Data_Struct['tSNE-2 perp'+str(perp)]=proj_tsne[:,1]
+
+#UMAP calculation
+for nn in n_neighbors_nums:
+    for mind in mindists:
+        np.random.seed(111)
+        proj_umap = umap.UMAP(n_components=2, n_neighbors=nn, min_dist=mind).fit_transform(principal_components[:,:n_pc])
+        Data_Struct['UMAP-1 numn'+str(nn)+' mindist'+str(mind)]=proj_umap[:,0]
+        Data_Struct['UMAP-2 numn'+str(nn)+' mindist'+str(mind)]=proj_umap[:,1]
+```
 
 ### Visualizing the Results
+Finally, the results are visualized:
+```python
+# Ensure the lengths of perplexity_values and mindists are equal
+if len(perplexity_values) != len(mindists):
+    raise ValueError("The number of perplexity values must be equal to the number of minimum distance values.")
+
+# Determine the number of rows and columns for the subplot grid
+n_rows = len(perplexity_values)
+n_cols = 1 + len(n_neighbors_nums)  # Adding 1 for t-SNE and the rest for UMAP
+
+# Create the subplot grid
+fig, axs = plt.subplots(n_rows, n_cols, figsize=(5 * n_cols, 5 * n_rows))
+fig.suptitle("input:" + filename + ' / Top ' + str(n_pc) + 'PCs are used (' + str(round(expl_df['cumulative_expl'][n_pc-1], 1)) + '%)', fontsize=14)
+
+# t-SNE plots (first column)
+for i, perp in enumerate(perplexity_values):
+    sns.scatterplot(ax=axs[i, 0], data=Data_Struct, x='tSNE-1 perp' + str(perp), y='tSNE-2 perp' + str(perp), s=500, hue='Population', palette=custom_palette, legend=False)
+    axs[i, 0].set_xlabel('tSNE-1')
+    axs[i, 0].set_ylabel('tSNE-2')
+    axs[i, 0].set_xticks([])
+    axs[i, 0].set_yticks([])
+    # Set the title differently for the first plot
+    if i == 0:
+        axs[i, 0].set_title('tSNE / Perplexity = ' + str(perp))
+    else:
+        axs[i, 0].set_title('Perplexity = ' + str(perp))
+
+
+# UMAP plots (next columns)
+for j, nn in enumerate(n_neighbors_nums):
+    for i, mind in enumerate(mindists):
+        is_last_plot = (i == len(mindists) - 1) and (j == len(n_neighbors_nums) - 1)
+        sns.scatterplot(ax=axs[i, j + 1], data=Data_Struct, x='UMAP-1 numn' + str(nn) + ' mindist' + str(mind), y='UMAP-2 numn' + str(nn) + ' mindist' + str(mind), s=500, hue='Population', palette=custom_palette, legend=is_last_plot)
+        
+        if i == 0:
+            axs[i, j + 1].set_title('UMAP / n_neighbours = ' + str(nn))
+        axs[i, j + 1].set_xlabel('UMAP-1')
+
+        # Set the y-axis label differently for the first column of UMAP plots
+        if j == 0:
+            axs[i, j + 1].set_ylabel('min_dist = ' + str(mind))
+        else:
+            axs[i, j + 1].set_ylabel('UMAP-2')
+
+        axs[i, j + 1].set_xticks([])
+        axs[i, j + 1].set_yticks([])
+        
+        # Adjust the legend for the last UMAP plot (bottom-right)
+        if is_last_plot:
+            axs[i, j + 1].legend(loc='center left', bbox_to_anchor=(1, 0.5), title='Population')
+
+```
+![Oryx GridPlot](images/OryxGridPlot.png)
 
 t-SNE and UMAP without PCA Initialization
 ------------------------
