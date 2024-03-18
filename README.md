@@ -278,7 +278,7 @@ for j, nn in enumerate(n_neighbors_nums):
             axs[i, j + 1].legend(loc='center left', bbox_to_anchor=(1, 0.5), title='Population')
 
 ```
-![Oryx GridPlot](images/OryxGridPlot.png)
+![Oryx GridPlot](images/Oryx_GridPlot.png)
 
 t-SNE and UMAP without PCA Initialization
 ------------------------
