@@ -8,7 +8,7 @@
     + [Important Points to Consider](#Important-Points-to-Consider)
   * [Running t-SNE and UMAP with the Principal Components of Genotype Likelihoods](#Running-t-SNE-and-UMAP-with-the-Principal-Components-of-Genotype-Likelihoods)
      + [Loading Required Libraries](#Loading-Required-Libraries)
-     + [Creating Color Dictionaries for Different Populations](#Creating-Color-Dictionaries-for-Different-Populations)
+     + [Creating Color Palette for Different Populations](#Creating-Color-Palette-for-Different-Populations)
      + [Loading the Population Data and Covariance Matrix](#Loading-the-Population-Data-and-Covariance-Matrix)
      + [Performing Elbow Method for the Selection of Principal Components](#Performing-Elbow-Method-for-the-Selection-of-Principal-Components)
      + [Performing t-SNE and UMAP with a Grid Search](#Performing-t-SNE-and-UMAP-with-a-Grid-Search)
@@ -89,6 +89,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from kneed import KneeLocator
 
 # Dimension reduction tools
 from sklearn.decomposition import PCA as PCA
@@ -96,7 +97,7 @@ from sklearn.manifold import TSNE
 import umap
 ```
 
-### Creating Color Dictionaries for Different Populations
+### Creating Color Palette for Different Populations
 
 
 ### Loading the Population Data and Covariance Matrix
