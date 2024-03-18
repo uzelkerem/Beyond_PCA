@@ -118,7 +118,7 @@ Covariance matrix and population data for Oryx samples are loaded:
 #load population data
 population_names = pd.read_csv('population_info/oryx_pop_info_sorted_46_final.txt', sep='\t', header=0)
 #load the covariance matrix
-filename='cov_files/oryx_0.5xyh.cov'
+filename='cov_files/oryx_2xyh_1K.cov'
 cov_mat= pd.read_csv(filename, sep=' ', header=None)
 #Generating the pandas dataframe called Data_Struct
 Data_Struct=population_names
@@ -126,14 +126,11 @@ Data_Struct=population_names
 
 ### Performing Elbow Method for the Selection of Principal Components
 
-First the functions to calculate the 'elbow point' (using kneed, [Satopaa et al., 2011](https://github.com/arvkevi/kneed/tree/v0.8.5)) and scree plot functions are defined:
+First the functions to calculate the 'elbow point' (using *kneed*, [Satopaa et al., 2011](https://github.com/arvkevi/kneed/tree/v0.8.5)) and scree plot functions are defined:
+
 ```python
-
-# Define your filenames and their corresponding titles
-filename_title = ['Oryx 0.5x']  # Title of the plots
-
 # Function to plot the scree plot
-def plot_scree(explained_variance,elbow_point):
+def plot_scree(explained_variance,filename_title,elbow_point):
     plt.figure(figsize=(8, 4))
     # Convert to a simple list if it's not already
     explained_variance = list(explained_variance)
@@ -154,8 +151,40 @@ def find_elbow_point(explained_variance, sensitivity=1.0):
                           S=sensitivity, interp_method='polynomial')
     return kneedle.elbow
 ```
+Next, principal component analysis is performed:
+
+```python
+#Calculate PCA
+#convert covariance matrix to numpy array
+cov_mat_np=cov_mat.to_numpy()
+
+# calculate eigen vectors and eigen values from the initial covariance matrix
+eigen_vals, eigen_vecs = np.linalg.eig(cov_mat_np)
+eigen_pairs = [(np.abs(eigen_vals[i]), eigen_vecs[:, i]) for i in range(len(eigen_vals))]
+eigen_pairs.sort(key=lambda k: k[0], reverse=True)
+feature_vector = np.hstack([eigen_pairs[i][1][:, np.newaxis] for i in range(len(eigen_vals))])
+principal_components = cov_mat_np.dot(feature_vector) 
+
+# sorting them from largest to smallest
+idx = eigen_vals.argsort()[::-1]   
+eigenValues = eigen_vals[idx]
+eigenVectors = eigen_vecs[:,idx]
+
+# calculating the total explained variance
+expl_pre=eigenValues/sum(eigenValues)
+expl=np.cumsum(expl_pre)
+
+expl_df=pd.DataFrame(expl_pre*100,columns=['explained_variance'])
+expl_df['cumulative_expl']=expl*100
+expl_df.set_index(np.arange(1, eigenVectors.shape[0] + 1), inplace=True)
+```
+Finally, elbow point is calculated and plotted together with the scree plot:
+
+
+
 
 ### Performing t-SNE and UMAP with a Grid Search
+
 
 ### Visualizing the Results
 
