@@ -18,27 +18,20 @@
     
 Getting Started
 ===========================================
-This repository is about ..
+This repository includes the input files and code used in Çilingir et al. (n.d) Additionally, you'll find a tutorial on using genotype likelihoods in non-linear dimensionality reduction techniques for analyzing population genetic structure. If you find the tutorial helpful, please cite our paper as indicated in the [Citation](#Citation) section below.
 
 Installing Jupyter Notebook
 ------------------------
 
-For new users, we highly recommend [installing Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) and creating a conda environment which includes the required packages to run the Jupyter Notebook and the subsequent analysis detailed in the following tutorial.
+We recommend [installing Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) and creating a conda environment that includes the necessary packages to run the Jupyter Notebook and perform the subsequent analysis outlined in the following tutorial.
 
-Use the following installation steps:
+For reproducibility, we provide the file required to build the Conda environment to perform our analyses. You can create a Conda environment with [this file](environment/lcUMAPtSNE.yml):
+  
+```bash
+conda env create -f lcUMAPtSNE.yml
+```
 
-1. Download [Anaconda](https://www.anaconda.com/download). We recommend
-   downloading Anaconda's latest Python 3 version (currently Python 3.11).
-
-2. Install the version of Anaconda which you downloaded, following the
-   instructions on the download page.
-
-3. Congratulations, you have installed Jupyter Notebook. To run the notebook:
-
-   
-    ```bash
-    jupyter notebook
-
+See [Managing Environments in Conda] (https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#) for more details.
 See [Running the Notebook](https://docs.jupyter.org/en/latest/running.html#running) for more details.
 
 Tutorial
@@ -47,38 +40,54 @@ Tutorial
 Generating Input Files
 ------------------------
 ### Estimation of Genotype Likelihoods
-In this tutorial, we will use SO_2x dataset and explain related analysis steps for a single input file. 
+In this tutorial, we will use SO_2x dataset mentioned in Çilingir et al. (n.d.) and explain related analysis steps for a single input file. 
 
+In our study, we used the raw data of [Humble et al. (2023)](https://www.pnas.org/doi/full/10.1073/pnas.2210756120) and mirrored their genotype-likelihood estimation and PCA.
 
-Bu tutorial'da oryx datasi uzerinden gidicez, onun angsd kodunu acikliycaz.
+First we estimated genotype-likelihoods with [ANGSD](https://www.popgen.dk/angsd/index.php/ANGSD).
+
+```bash
+$angsd -P 1 -bam bams.list -ref $REF -rf chrs.list -out SO_2x -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -minQ 30 -minMapQ 30 -minMaf 0.01 -minInd 30 -GL 2 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 -SNP_pval 1e-6 -doGlf 2
+```
+
+We then used the variant site positions in the resulting "SO_2x.mafs" file and performed thinning with a [custom script](codes/thin.sh). Afterward, we ran ANGSD again with these [sites](https://www.popgen.dk/angsd/index.php/Sites).
 
 ### Principal Component Analysis using Genotype Likelihoods
 
+We ran PCA with [PCAngsd](https://www.popgen.dk/software/index.php/PCAngsd):
+
+```bash
+pcangsd -b SO_2x_thinned1K.beagle.gz -o SO_2x_thinned1K"
+```
+
 ### Important Points to Consider
-Angsd ile ilgili. Missingness, minor allela freq onemi, citation ile guideline cok guzel buna bakabilirsiniz diycez.
+It's important to acknowledge that PCA can be influenced by various factors, including the relatedness between samples, uneven representation of each sampled hypothetical population, data missingness, the presence of rare SNPs, and the correlation of genetic markers due to linkage disequilibrium.
+Therefore, it's essential to select appropriate settings within ANGSD and PCAngsd. For further insight into parameter settings for genotype-likelihood-based analysis, we recommend referring to this guideline: [Lou et al. 2021](https://onlinelibrary.wiley.com/doi/full/10.1111/mec.16077?casa_token=EXTKRj6uH_EAAAAA%3AaQrZ14Y7Oxem05HpoucBqBoiJqQ8SjRn5WPdt0UC6fiwsoB8OsL55kN01PyeOriFAxL48EeGy-nyc02o).
 
 Running t-SNE and UMAP with the Principal Components of Genotype Likelihoods
 ------------------------
 ### Loading Required Libraries
-In the following sections we will go over a single input covariance matrix obtained with (SO_2x). For the corresponding Jupyter Notebook refer to XX1.ipynb
+In the following sections we will go over a single input covariance matrix obtained with (SO_2x), the output of PCAngsd.
 
-For running subsequent analyses with multiple covariance matrices you can refer to XXX2.ipynb
+For the corresponding Jupyter Notebook refer to [SO_singleCov_GridSearch.ipynb](SO_singleCov_GridSearch.ipynb). For running subsequent analyses with multiple covariance matrices you can refer to [SO_multiCov_GridSearch.ipynb](SO_singleCov_GridSearch.ipynb)
 
-The first step is to load required libraries. For this, we need to activate the conda environment (env_name):
+Now we need to activate the conda environment (lcUMAPtSNE):
+
 ```bash
-conda activate env_name
+conda activate lcUMAPtSNE
 ```
 
-Next, we need to initiate the jupyter notebook:
+Next, we need to initiate the Jupyter Notebook:
+
 ```bash
-jupyter notebook XX1.ipynb
+jupyter notebook path/to/SO_singleCov_GridSearch.ipynb
 ```
 
-Then, a browser windor will be opened. From there we will select the conda environment we created as a kernel:
+Then, a browser window will be opened. From there we will select the conda environment we created as a kernel:
 
-![Kernel Selection](images/ss1.png)
+![Screenshot Description](images/ss1.png)
 
-In this jupyter notebook the first code block is for loading required libraries:
+In this Jupyter Notebook the first code block is for loading required libraries:
 
 ```python
 # Import libraries
@@ -96,7 +105,8 @@ import umap
 
 ### Creating Color Palette for Different Populations
 
-A custom color palette is created for Oryx populations as in (REF):
+To ensure accessibility in visual data representation, we used a color palette generated by the online tool [I Want Hue](https://medialab.github.io/iwanthue/).
+
 ```python
 #for Oryx datasets:
 custom_palette = {
@@ -279,7 +289,7 @@ for j, nn in enumerate(n_neighbors_nums):
 
 t-SNE and UMAP without PCA Initialization
 ------------------------
-
+If you prefer not to use PCA, you can produce a distance matrix with [ngsDist](https://github.com/fgvieira/ngsDist) or [distAngsd](https://github.com/lz398/distAngsd) first. Then you perform t-SNE and UMAP using the distance matrix you produced with the Jupyter Notebook [multiCov_GridSearch.ipynb](multiCov_GridSearch.ipynb)
 
 Citation
 ===========================================
