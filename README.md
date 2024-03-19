@@ -31,7 +31,7 @@ For reproducibility, we provide the file required to build the Conda environment
 conda env create -f lcUMAPtSNE.yml
 ```
 
-See [Managing Environments in Conda] (https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#) for more details.
+See [Managing Environments in Conda](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#) for more details.
 See [Running the Notebook](https://docs.jupyter.org/en/latest/running.html#running) for more details.
 
 Tutorial
